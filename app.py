@@ -17,6 +17,7 @@ CONFIG = {
 
 # Folder creation
 for path in [CONFIG['WATCH_FOLDER'], CONFIG['OUT_FINAL'], CONFIG['BACKUP_DIR']]:
+    # exist_ok=True lagana compulsory hai warna app kabhi load nahi hoga
     os.makedirs(path, exist_ok=True)
 
 st.set_page_config("🛡️ KRISHNA v26 PRO", layout="wide")
