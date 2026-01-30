@@ -5,7 +5,7 @@ from rembg import new_session
 from ai_engine import analyze_with_gemini
 from processor import master_process
 
-# CLOUD PATHS (No C:\Users here)
+# CLOUD PATHS
 CONFIG = {
     'WATCH_FOLDER': "Photos",
     'OUT_FINAL': "Final_Images",
@@ -13,14 +13,14 @@ CONFIG = {
     'LOG_FILE': "Product_Catalog.csv"
 }
 
-# Cloud par folders auto-create karne ke liye
+# Folder creation
 for path in [CONFIG['WATCH_FOLDER'], CONFIG['OUT_FINAL'], CONFIG['BACKUP_DIR']]:
     if not os.path.exists(path):
         os.makedirs(path)
 
 st.set_page_config("🛡️ KRISHNA v26 PRO", layout="wide")
 
-# API Secrets (Cloud settings mein daalna padega)
+# API Secrets
 client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 session = new_session("isnet-general-use")
 
@@ -47,7 +47,7 @@ with st.sidebar:
 # --- CATALOG ---
 if os.path.exists(CONFIG['LOG_FILE']):
     df = pd.read_csv(CONFIG['LOG_FILE'])
-    st.dataframe(df.iloc[::-1], width='stretch', hide_index=True)
+    st.dataframe(df.iloc[::-1], use_container_width=True, hide_index=True)
 
 st.divider()
 col_gal, col_sync = st.columns([2, 1])
@@ -62,9 +62,9 @@ with col_gal:
             cols = st.columns(2)
             for i, f in enumerate(files):
                 with cols[i % 2]:
-                    st.image(os.path.join(CONFIG['OUT_FINAL'], f), width='stretch')
+                    st.image(os.path.join(CONFIG['OUT_FINAL'], f), use_container_width=True)
                     r_bg = st.color_picker(f"New BG", "#FFFFFF", key=f"gal_cp_{f}")
-                    if st.button(f"Update SKU {f.split('_')[0]}", key=f"gal_btn_{f}"):
+                    if st.button(f"Update SKU {f.split('_')[0]}", key=f"gal_btn_{f}", use_container_width=True):
                         sku_pre = f.split('_')[0]
                         for b_file in os.listdir(CONFIG['BACKUP_DIR']):
                             if b_file.startswith(sku_pre):
@@ -78,9 +78,9 @@ with col_sync:
     if incoming:
         for idx, f in enumerate(incoming):
             with st.container(border=True):
-                st.image(os.path.join(CONFIG['WATCH_FOLDER'], f), width='stretch')
+                st.image(os.path.join(CONFIG['WATCH_FOLDER'], f), use_container_width=True)
                 i_bg = st.color_picker(f"Pick BG Color", "#F0F0F0", key=f"q_cp_{idx}_{f}")
-                if st.button(f"✅ PROCESS", key=f"q_btn_{idx}_{f}"):
+                if st.button(f"✅ PROCESS", key=f"q_btn_{idx}_{f}", use_container_width=True):
                     master_process(f, client, session, analyze_with_gemini, CONFIG, i_bg)
                     st.rerun()
     else:
