@@ -1,3 +1,5 @@
+import os
+os.environ["U2NET_HOME"] = "/tmp/.u2net"
 import streamlit as st
 import os, pandas as pd
 from google import genai
