@@ -29,7 +29,7 @@ head_col1, head_col2 = st.columns([5, 1])
 with head_col1:
     st.title("🚀 KRISHNA Wide-Studio AI (v26)")
 with head_col2:
-    if st.button("🔄 REFRESH APP", width='stretch'):
+    if st.button("🔄 REFRESH APP", use_container_width=True):
         st.rerun()
 
 # --- SIDEBAR UPLOADER ---
