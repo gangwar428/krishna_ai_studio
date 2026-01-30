@@ -1,13 +1,15 @@
 import os
+# Rembg model path fix (Sabse pehle hona chahiye)
 os.environ["U2NET_HOME"] = "/tmp/.u2net"
+
 import streamlit as st
-import os, pandas as pd
+import pandas as pd
 from google import genai
 from rembg import new_session
 from ai_engine import analyze_with_gemini
 from processor import master_process
 
-# CLOUD PATHS
+# CONFIG
 CONFIG = {
     'WATCH_FOLDER': "Photos",
     'OUT_FINAL': "Final_Images",
@@ -15,9 +17,8 @@ CONFIG = {
     'LOG_FILE': "Product_Catalog.csv"
 }
 
-# Folder creation
+# Folder creation (exist_ok prevents the crash you saw)
 for path in [CONFIG['WATCH_FOLDER'], CONFIG['OUT_FINAL'], CONFIG['BACKUP_DIR']]:
-    # exist_ok=True lagana compulsory hai warna app kabhi load nahi hoga
     os.makedirs(path, exist_ok=True)
 
 st.set_page_config("🛡️ KRISHNA v26 PRO", layout="wide")
