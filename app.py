@@ -17,8 +17,7 @@ CONFIG = {
 
 # Folder creation
 for path in [CONFIG['WATCH_FOLDER'], CONFIG['OUT_FINAL'], CONFIG['BACKUP_DIR']]:
-    if not os.path.exists(path):
-        os.makedirs(path)
+    os.makedirs(path, exist_ok=True)
 
 st.set_page_config("🛡️ KRISHNA v26 PRO", layout="wide")
 
